@@ -245,7 +245,37 @@ const SearchResults = () => {
   // ??
 }
 ```
+```jsx
+//answer
+const App = () => {
 
+  const [searchTerm, setSearchTerm] = React.useState('');
+  
+  return (
+    <>
+      <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm}/>
+      <SearchResults searchTerm={searchTerm}/>
+    </>
+  )
+}
+
+const SearchInput = ({ searchTerm, setSearchTerm }) => {
+
+  return (
+    <input
+      type="text"
+      value={searchTerm}
+      onChange={(ev) => {
+        setSearchTerm(ev.target.value);
+      }}
+    />
+  );
+}
+
+const SearchResults = ({ searchTerm }) => {
+  // ??
+}
+```
 ---
 
 This is called "lifting state up".
@@ -282,6 +312,31 @@ const App = () => {
 }
 
 render(<App />)
+```
+```jsx 
+//answer
+const Counter = ({ count, setCount }) => {
+
+  return (
+    <>
+      <button onClick={() => setCount(count + 1)}>
+        Increment
+      </button>
+    </>
+  )
+};
+
+const App = () => {
+  const [count, setCount] = React.useState(0);
+
+  return (
+    <>
+      The current count is: {count}
+
+      <Counter count={count} setCoun={setCount}/>
+    </>
+  )
+}
 ```
 
 ---
@@ -322,6 +377,49 @@ const App = () => {
       My favourite food is: ???
       <br /><br />
       <FavouriteFood />
+    </>
+  )
+}
+
+render(<App />)
+```
+```jsx live=true
+//correction
+const FavouriteFood = ({ setFood }) => {
+
+  return (
+    <>
+      <label>
+        <input
+          type="radio"
+          name="food"
+          value="pizza"
+          onChange={() => setFood('pizza')}
+        />
+        Pizza
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="food"
+          value="broccoli"
+          onChange={() => setFood('broccoli')}
+        />
+        Broccoli
+      </label>
+    </>
+  )
+};
+
+const App = () => {
+  const [food, setFood] = React.useState('');
+
+  return (
+    <>
+      <p>
+        My favourite food is: {food}
+      </p>
+        <FavouriteFood setFood={setFood}/>
     </>
   )
 }
