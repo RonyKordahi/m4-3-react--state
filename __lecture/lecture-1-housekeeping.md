@@ -24,6 +24,12 @@ const BlueButton = styled.button`
   font-weight: bold;
   background: #2B00D7;
   color: #FFF;
+`;
+
+//Better version
+const BlueButton = styled(Button)`
+  background: #2B00D7;
+  color: #FFF;
 `
 
 render(<>
